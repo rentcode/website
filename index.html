@@ -20,7 +20,7 @@
                 <a href="#" class="logo">RentCode</a>
                 <ul class="nav-links">
                     <li><a href="#search-section">Get Started</a></li>
-                    <li><a href="listings.html">Listings</a></li>
+                    <!-- <li><a href="listings.html">Listings</a></li> -->
                     <li><a href="#footer">Contact</a></li>
                 </ul>
                 <div class="hamburger">
@@ -30,14 +30,41 @@
         </nav>
     </header>
 
+    <!-- User Type Selection -->
+    <section class="user-type-selection">
+        <div class="container">
+            <div class="selection-box" data-aos="fade-in">
+                <h2 class="selection-title">How can we help you today?</h2>
+                <p class="selection-subtitle">Select your role to get started.</p>
+                <div class="selection-buttons">
+                    <button id="select-tenant" class="selection-btn" data-role="Tenant" data-aos="fade-up" data-aos-delay="100">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
+                        <span>I'm a Tenant</span>
+                        <small>Looking for a new home</small>
+                    </button>
+                    <button id="select-landlord" class="selection-btn" data-role="Landlord" data-aos="fade-up" data-aos-delay="200">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m-6.75 0l-1.5.545m0 0l-2.25 4.5 2.25 4.5m13.5-9l-2.25 4.5 2.25 4.5" />
+                        </svg>
+                        <span>I'm a Landlord</span>
+                        <small>Looking to list a property</small>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Multi-Step Form Section -->
     <main id="search-section" class="search-section" data-aos="fade-in">
         <div class="container">
             <div class="form-intro" data-aos="fade-up">
-                <h2>Let's Find Your Perfect Home</h2>
-                <p>Answer a few questions and we'll connect you with the best rentals.</p>
+                <h2>Let's Find Your Perfect Home</h2> <!-- This will be updated by JS -->
+                <p>Answer a few questions and we'll connect you with the best rentals.</p> <!-- This will be updated by JS -->
             </div>
             <form id="lead-form" class="lead-form">
+                <input type="hidden" id="user_type" name="user_type" value="">
                 <!-- Progress Bar -->
                 <div class="progress-bar">
                     <div class="progress-bar-track">
@@ -49,47 +76,85 @@
                         <div class="progress-step" data-step="3">Contact</div>
                     </div>
                 </div>
-
-                <!-- Step 1: Location -->
-                <div class="form-step active-step" id="step-1">
-                    <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Which city in Ontario are you interested in?</h3>
-                    <div class="custom-select-wrapper">
-                        <select name="city" id="ontario-cities" required>
-                            <option value="" disabled selected>Select a City</option>
-                            <option value="Toronto">Toronto</option>
-                            <option value="Mississauga">Mississauga</option>
-                            <option value="Ottawa">Ottawa</option>
-                            <option value="Any">Any / Not Sure</option>
-                        </select>
+                
+                <div class="form-steps-container">
+                    <!-- Step 1: Location -->
+                    <div class="form-step active-step" id="step-1">
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Which city in Ontario are you interested in?</h3>
+                        <div class="custom-select-wrapper">
+                            <select name="city" id="ontario-cities" required>
+                                <option value="" disabled selected>Select a City</option>
+                                <option value="Toronto">Toronto</option>
+                                <option value="Mississauga">Mississauga</option>
+                                <option value="Ottawa">Ottawa</option>
+                                <option value="Any">Any / Not Sure</option>
+                            </select>
+                        </div>
+                        <button type="button" class="next-button">Next &rarr;</button>
                     </div>
-                    <button type="button" class="next-button">Next &rarr;</button>
-                </div>
 
-                <!-- Step 2: Details -->
-                <div class="form-step" id="step-2">
-                    <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> What are your requirements?</h3>
-                    <div class="custom-select-wrapper">
-                        <select name="bedrooms" required>
-                            <option value="" disabled selected>Number of Bedrooms</option>
-                            <option value="1">1+ Bedrooms</option>
-                            <option value="2">2+ Bedrooms</option>
-                            <option value="3">3+ Bedrooms</option>
-                        </select>
+                    <!-- Step 2: Details -->
+                    <div class="form-step" id="step-2">
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> What are your requirements?</h3>
+                        
+                        <!-- Common Field -->
+                        <div class="custom-select-wrapper">
+                            <select name="bedrooms" required>
+                                <option value="" disabled selected>Number of Bedrooms</option>
+                                <option value="1">1+ Bedrooms</option>
+                                <option value="2">2+ Bedrooms</option>
+                                <option value="3">3+ Bedrooms</option>
+                                <option value="4">4+ Bedrooms</option>
+                            </select>
+                        </div>
+
+                        <!-- Tenant-Specific Fields -->
+                        <div class="input-group tenant-field"><input type="number" name="budget" placeholder=" " required><label>Your monthly budget (CAD)</label><span class="error-message"></span></div>
+
+                        <!-- Landlord-Specific Fields -->
+                        <div class="custom-select-wrapper landlord-field">
+                            <select name="property_type" required>
+                                <option value="" disabled selected>Property Type</option>
+                                <option value="Apartment">Apartment</option>
+                                <option value="Condo">Condo</option>
+                                <option value="House">House</option>
+                                <option value="Townhouse">Townhouse</option>
+                            </select>
+                        </div>
+                        <div class="input-group landlord-field"><input type="text" name="property_address" placeholder=" " required><label>Property Address</label><span class="error-message"></span></div>
+                        <div class="input-group landlord-field"><input type="number" name="monthly_rent" placeholder=" " required><label>Desired monthly rent (CAD)</label><span class="error-message"></span></div>
+
+                        <button type="button" class="prev-button">&larr; Back</button>
+                        <button type="button" class="next-button">Next &rarr;</button>
                     </div>
-                    <div class="input-group"><input type="number" name="budget" placeholder=" " required><label>Your monthly budget (CAD)</label><span class="error-message"></span></div>
-                    <button type="button" class="prev-button">&larr; Back</button>
-                    <button type="button" class="next-button">Next &rarr;</button>
-                </div>
 
-                <!-- Step 3: Contact Info -->
-                <div class="form-step" id="step-3">
-                    <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> How can we reach you?</h3>
-                    <div class="input-group"><input type="text" name="name" placeholder=" " required><label>Your Name</label><span class="error-message"></span></div>
-                    <div class="input-group"><input type="email" name="email" placeholder=" " required><label>Your Email Address</label><span class="error-message"></span></div>
-                    <div class="input-group"><input type="tel" name="phone" placeholder=" " required><label>Your Phone Number</label><span class="error-message"></span></div>
-                    <div class="input-group"><textarea name="message" placeholder=" " required></textarea><label>Any additional details? (e.g., move-in date)</label><span class="error-message"></span></div>
-                    <button type="button" class="prev-button">&larr; Back</button>
-                    <button type="submit" class="submit-button cta-button">Get My Custom Listings</button>
+                    <!-- Step 3: Contact Info -->
+                    <div class="form-step" id="step-3">
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> How can we reach you?</h3>
+                        <div class="input-group"><input type="text" name="name" placeholder=" " required><label>Your Name</label><span class="error-message"></span></div>
+                        <div class="input-group"><input type="email" name="email" placeholder=" " required><label>Your Email Address</label><span class="error-message"></span></div>
+                        <div class="input-group"><input type="tel" name="phone" placeholder=" " required><label>Your Phone Number</label><span class="error-message"></span></div>
+                        <div class="input-group"><textarea name="message" placeholder=" " required></textarea><label>Any additional details? (e.g., move-in date)</label><span class="error-message"></span></div>
+                        
+                        <div class="payment-section">
+                            <h4>Complete Your Submission</h4>
+                            <p>A one-time fee of <strong>$30 USD</strong> is required to process your application.</p>
+                            <div class="payment-buttons">
+                                <button type="button" id="pay-skrill" class="submit-button skrill-button">
+                                    <svg class="payment-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.321 6.213a.938.938 0 00-.034-.485c-.03-.08-.06-.15-.1-.22-.03-.06-.07-.12-.1-.18-.07-.11-.15-.22-.24-.32-.04-.05-.08-.1-.13-.14-.1-.1-.2-.18-.32-.26-.06-.04-.13-.08-.19-.11-.12-.07-.25-.13-.38-.18-.06-.02-.13-.04-.19-.06-.14-.05-.28-.09-.43-.12-.07-.01-.14-.02-.21-.03-.14-.03-.28-.05-.43-.06-.08-.01-.16-.01-.24-.01H3.6c-.24 0-.4.16-.4.4v.04c0 .24.16.4.4.4h16.8c.05 0 .09.01.14.01.1.01.19.03.28.05.05.01.1.02.15.03.09.02.18.05.26.08.05.02.09.04.14.06.08.03.16.07.23.11.04.02.07.04.11.07.07.04.14.09.2.14.03.03.06.06.09.09.06.06.11.12.16.19.02.03.05.06.07.09.04.06.08.13.11.2.01.03.02.05.03.08a.82.82 0 01.09.43V17.6c0 .24-.16.4-.4.4H3.6c-.24 0-.4-.16-.4-.4V6.8c0-.24.16-.4.4-.4h.01c.24 0 .4.16.4.4v10.4h16.511L20.51 6.8h.811z" fill="#fff"></path><path d="M17.31 14.2h-3.6c-.24 0-.4-.16-.4-.4V9.2c0-.24.16-.4.4-.4h3.6c.24 0 .4.16.4.4v4.4c0 .24-.16.4-.4.4zm-3.2-1.2h2.8V9.6h-2.8v3.4zM12.11 14.2h-3.6c-.24 0-.4-.16-.4-.4V9.2c0-.24.16-.4.4-.4h3.6c.24 0 .4.16.4.4v4.4c0 .24-.16.4-.4.4zm-3.2-1.2h2.8V9.6h-2.8v3.4zM6.91 14.2h-3.6c-.24 0-.4-.16-.4-.4V9.2c0-.24.16-.4.4-.4h3.6c.24 0 .4.16.4.4v4.4c0 .24-.16.4-.4.4zm-3.2-1.2h2.8V9.6h-2.8v3.4z" fill="#fff"></path></svg>
+                                    <span>Pay with Skrill</span>
+                                </button>
+                                <button type="button" id="pay-paypal" class="submit-button paypal-button">
+                                    <svg class="payment-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.068 18.396c-.28.06-.54.09-.78.09-.599 0-1.019-.15-1.259-.45-.24-.3-.3-.749-.21-1.289l.66-3.964.12-1.019c.03-.24.06-.42.09-.54.03-.12.03-.21.03-.21h2.22l-.48 3.333c-.06.42-.06.72-.03.93.03.21.15.39.36.51.21.12.48.18.81.18.48 0 .9-.09 1.26-.27l.39-2.342c.03-.18.03-.36.03-.51 0-.21-.03-.39-.09-.51-.06-.12-.15-.21-.27-.27-.12-.06-.27-.09-.45-.09-.3 0-.57.06-.78.18l-.18.09-1.05-6.335h2.4l-.15.93h.06c.24-.66.69-1.14 1.35-1.44.66-.3 1.47-.45 2.43-.45.84 0 1.56.15 2.16.45.6.3 1.02.72 1.26 1.26.24.54.36 1.17.36 1.89 0 .48-.06.93-.18 1.35-.12.42-.3.78-.54 1.08-.24.3-.54.54-.9.72-.36.18-.78.27-1.26.27-.6 0-1.11-.09-1.53-.27-.42-.18-.75-.45-.99-.81l-.54 3.243h-.06c-.24.66-.69 1.14-1.35 1.44-.66-.3-1.47.45-2.43-.45-.66 0-1.23-.09-1.71-.27zm3.392-5.434c.18-.12.39-.18.63-.18.36 0 .66.09.9.27.24.18.42.45.51.81.09.36.14.75.14 1.17 0 .48-.06.9-.18 1.26-.12.36-.3.66-.54.9-.24.24-.54.36-.9.36-.54 0-.99-.18-1.35-.54l.81-4.893zm3.032-2.942c.18-.12.39-.18.63-.18.36 0 .66.09.9.27.24.18.42.45.51.81.09.36.14.75.14 1.17 0 .48-.06.9-.18 1.26-.12.36-.3.66-.54.9-.24.24-.54.36-.9.36-.54 0-.99-.18-1.35-.54l.81-4.893z" fill="#fff"></path></svg>
+                                    <span>Pay with PayPal</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="step-nav">
+                            <button type="button" class="prev-button">&larr; Back</button>
+                        </div>
+                    </div>
                 </div>
             </form>
             <div id="form-message" class="form-message"></div>

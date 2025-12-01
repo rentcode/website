@@ -90,6 +90,7 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     box-sizing: border-box;
+    display: none; /* Initially hidden, shown with JS */
     min-height: 100vh;
 }
 
@@ -117,7 +118,7 @@ h1, h2, h3 {
     border-radius: 12px;
     position: relative;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    overflow: hidden; /* To keep progress bar contained */
+    /* overflow: hidden; */ /* Removed to allow custom dropdowns to display correctly */
 }
 
 .progress-bar {
@@ -152,17 +153,100 @@ h1, h2, h3 {
     color: var(--primary-color);
     font-weight: 600;
 }
+
+/* --- User Type Selection Screen --- */
+.user-type-selection {
+    background: linear-gradient(315deg, var(--background-start) 0%, var(--background-end) 74%);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    padding: 120px 0 80px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.selection-box {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.selection-title {
+    font-size: 2.5rem;
+    color: var(--white);
+    margin-bottom: 1rem;
+}
+
+.selection-subtitle {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 3rem;
+}
+
+.selection-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.selection-btn {
+    background: rgba(55, 65, 81, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--white);
+    cursor: pointer;
+    padding: 2rem;
+    width: 300px;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.selection-btn:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 7px 20px rgba(251, 191, 36, 0.15);
+}
+
+.selection-btn svg {
+    width: 48px;
+    height: 48px;
+    stroke: var(--primary-color);
+}
+
+.selection-btn span {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.selection-btn small {
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
 .progress-step:first-child { text-align: left; }
 .progress-step:nth-child(2) { text-align: center; }
 .progress-step:last-child { text-align: right; }
 
+.form-steps-container {
+    position: relative;
+    overflow: hidden;
+    /* Calculate height based on a typical step content */
+    min-height: 450px; 
+}
 
 .form-step {
     opacity: 0;
     position: absolute;
-    top: 110px; /* Approx header + progress bar height */
-    left: 30px;
-    right: 30px;
+    top: 0;
+    left: 0;
+    right: 0;
     transform: translateX(100%);
     pointer-events: none;
     flex-direction: column;
@@ -225,16 +309,6 @@ h1, h2, h3 {
 
 .custom-select-wrapper {
     position: relative;
-}
-.custom-select-wrapper::after {
-    content: '▼';
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    font-size: 0.8rem;
-    color: var(--secondary-color);
-    pointer-events: none;
 }
 .lead-form select {
     -webkit-appearance: none;
@@ -623,6 +697,65 @@ footer {
         order: 2;
     }
 
+.step-nav {
+    width: 100%;
+    order: 3; /* Ensure it's at the bottom on mobile */
+    margin-top: 20px; /* Add space between payment and back button */
+}
+
+.payment-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.payment-section h4 {
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+
+.payment-section p {
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+.payment-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;    
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+/* Make payment buttons flex containers for icon alignment */
+.payment-buttons .submit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem; /* Space between icon and text */
+    flex-grow: 1; /* Allow buttons to grow */
+    min-width: 180px; /* Prevent buttons from becoming too small */
+}
+
+.skrill-button {
+    background-color: #8c137e;
+}
+.skrill-button:hover {
+    background-color: #a01791;
+}
+
+.paypal-button {
+    background-color: #0070ba;
+}
+.paypal-button:hover {
+    background-color: #0079c8;
+}
+
+.payment-icon {
+    width: 24px;
+    height: 24px;
+}
+
     .listings-layout {
         grid-template-columns: 1fr;
     }
@@ -643,4 +776,97 @@ footer {
     .footer-content {
         flex-direction: column;
     }
+}
+
+/* --- Custom Select Dropdown Styles --- */
+
+/* Hide the original select element, which is now controlled by our script */
+.custom-select-wrapper select {
+    display: none;
+}
+
+.select-selected {
+    background-color: rgba(31, 41, 55, 0.5); /* Match input background */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    color: var(--white);
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    transition: border-color 0.2s ease-in-out;
+    font-size: 1rem;
+}
+
+/* Style the arrow inside the select box */
+.select-selected::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    right: 1rem;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #9CA3AF transparent transparent transparent; /* text-gray-400 */
+    transform: translateY(-25%);
+    transition: transform 0.3s ease;
+}
+
+/* Point the arrow upwards when the select box is open */
+.select-selected.select-arrow-active::after {
+    transform: translateY(-75%) rotate(180deg);
+}
+
+.select-selected:hover, .select-selected.select-arrow-active {
+    border-color: var(--primary-color);
+}
+
+/* The container for all options */
+.select-items {
+    position: absolute;
+    background-color: #374151; /* bg-gray-700 */
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem; /* rounded-md */
+    z-index: 99;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* Hide the options by default */
+.select-hide {
+    display: none;
+}
+
+.select-items div {
+    color: #D1D5DB; /* text-gray-300 */
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* Style the options on hover */
+.select-items div:hover {
+    background-color: #4B5563; /* bg-gray-600 */
+    color: #FFFFFF;
+}
+
+/* Style the currently selected item in the options list */
+.same-as-selected {
+    background-color: #1F2937; /* bg-gray-800 */
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Hide role-specific fields by default */
+.tenant-field, .landlord-field {
+    display: none;
+}
+
+/* Add spacing between landlord-specific fields */
+.landlord-field {
+    margin-top: 25px;
 }
